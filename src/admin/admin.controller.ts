@@ -1,12 +1,26 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+  Req,
+} from '@nestjs/common';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
 export class AdminController {
   constructor(private adminService: AdminService) {}
+
   @Get()
-  getUser(): object {
-    return this.adminService.getUser();
+  getUserInfo(
+    @Query('id', ParseIntPipe) id: number,
+    @Query('page') page: string,
+  ): object {
+    console.log(page);
+    console.log(id);
+    return this.adminService.getUserInfo(id);
   }
 
   @Post()
